@@ -3,11 +3,25 @@ import key
 from fastapi import FastAPI
 from fastapi.responses import JSONResponse
 from fastapi.responses import HTMLResponse
+from fastapi.middleware.cors import CORSMiddleware
+
 
 
 app = FastAPI()
 app.title = "API de prueba"
 app.version = "0.0.1"
+
+origins = [
+    "*"
+]
+
+app.add_middleware(
+    CORSMiddleware,
+    allow_origins=origins,
+    allow_credentials=True,
+    allow_methods=["*"],
+    allow_headers=["*"],
+)
 
 genai.configure(api_key=key.clave)
 model = genai.GenerativeModel(model_name="gemini-pro")
