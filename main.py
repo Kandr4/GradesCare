@@ -1,3 +1,5 @@
+import google.auth
+from google.oauth2 import service_account
 import google.generativeai as genai
 import key
 from fastapi import FastAPI
@@ -26,7 +28,15 @@ app.add_middleware(
     allow_headers=["*"],
 )
 
-genai.configure(api_key=key.clave)
+# Ruta del archivo JSON de credenciales
+credential_path = "key.json"
+
+# Autenticación con las credenciales del archivo JSON
+credentials = service_account.Credentials.from_service_account_file(
+    credential_path
+)
+
+genai.configure(api_key=key.clave, credentials=credentials)
 model = genai.GenerativeModel(model_name="gemini-pro")
 
 movies = [
