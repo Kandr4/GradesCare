@@ -98,7 +98,7 @@ class Actividad(BaseModel):
     nivelEducativo: str
     carrera: str
     materia: str
-    edad: int
+    aptitudes: str
     descripcionActividad: str
     observaciones: str
 
@@ -114,7 +114,7 @@ def probando(actividad: Actividad):
 * **Career:** {career}
 * **Subject:** {subject}
 * **Activity Description:** {activity_description}
-* **Age:** {student_age}
+* **Capabilities:** {capabilities}
 * **Preferences:** {student_preferences}
 
 **Goal:**
@@ -123,6 +123,7 @@ def probando(actividad: Actividad):
 * **Incorporate various learning modalities** to engage the student and promote deeper understanding.
 * **Consider the student's learning style** and provide appropriate support and guidance.
 * **Make the activity relevant** to the student's interests and real-world experiences.
+* **Try to make the student learn the subject or topic, but with the capabilities you already know.**
 
 **Task:**
 
@@ -169,7 +170,7 @@ In this scenario, your task is to:
     Educational_level=actividad.nivelEducativo,
     career=actividad.carrera,
     subject=actividad.materia,
-    student_age=actividad.edad,
+    capabilities=actividad.aptitudes,
     activity_description=actividad.descripcionActividad,
     student_preferences=actividad.observaciones)).text
     
