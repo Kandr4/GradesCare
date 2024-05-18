@@ -28,6 +28,9 @@ app.add_middleware(
     allow_headers=["*"],
 )
 
+
+
+
 # Ruta del archivo JSON de credenciales
 credential_path = ".env"
 
