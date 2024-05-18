@@ -185,7 +185,7 @@ def evaluar(evaluacion: Evaluacion):
     # TODO(developer): Update and un-comment below lines
     project_id = "gradescare"
 
-    vertexai.init(project=project_id, location="us-central1")
+    vertexai.init(project=project_id, location="us-central1", credentials=credentials)
 
     model = GenerativeModel(model_name="gemini-1.5-pro-preview-0409")
 
