@@ -4,6 +4,7 @@ from fastapi import FastAPI
 from fastapi.responses import JSONResponse
 from fastapi.responses import HTMLResponse
 from fastapi.middleware.cors import CORSMiddleware
+from pydantic import BaseModel
 
 
 
@@ -79,8 +80,18 @@ def pedir_Actividad(perfil: str, nivelEducativo: str, carrera:str, materia:str, 
     
     return response.text'''
 
+#It will receive JSons
+class Actividad(BaseModel):
+    perfil: str
+    nivelEducativo: str
+    carrera: str
+    materia: str
+    edad: int
+    descripcionActividad: str
+    observaciones: str
+
 @app.post('/actividad', tags=['gradesCare'])
-def probando(perfil: str, nivelEducativo: str, carrera:str, materia:str, edad: int,  descripcionActividad: str, observaciones: str):
+def probando(actividad: Actividad):
     PROFESSOR_PROMPT = """
 **You are a highly knowledgeable and versatile professor, capable of designing engaging activities across various subjects and catering to diverse student needs.**
 
@@ -142,12 +153,12 @@ In this scenario, your task is to:
       model_name, system_instruction=PROFESSOR_PROMPT)
     convo = model.start_chat(enable_automatic_function_calling=True)
     return convo.send_message(PROFESSOR_PROMPT.format(
-    profile=perfil,
-    Educational_level=nivelEducativo,
-    career=carrera,
-    subject=materia,
-    student_age=edad,
-    activity_description=descripcionActividad,
-    student_preferences=observaciones
+    profile=actividad.perfil,
+    Educational_level=actividad.nivelEducativo,
+    career=actividad.carrera,
+    subject=actividad.materia,
+    student_age=actividad.edad,
+    activity_description=actividad.descripcionActividad,
+    student_preferences=actividad.observaciones
     
         )).text
