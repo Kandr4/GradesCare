@@ -102,7 +102,7 @@ class Actividad(BaseModel):
     descripcionActividad: str
     observaciones: str
 
-@app.post('/actividad', tags=['gradesCare'])
+@app.post('/actividad', tags=['storage-innova'])
 def probando(actividad: Actividad):
     PROFESSOR_PROMPT = """
 **You are a highly knowledgeable and versatile professor, capable of designing engaging activities across various subjects and catering to diverse student needs.**
@@ -179,12 +179,12 @@ class Evaluacion(BaseModel):
     url_pdf: str
     
  
-@app.post('/evaluar', tags=['gradesCare'])
+@app.post('/evaluar', tags=['storage-innova'])
 def evaluar(evaluacion: Evaluacion):
     
 
     # TODO(developer): Update and un-comment below lines
-    project_id = "gradescare"
+    project_id = "storage-innova"
 
     vertexai.init(project=project_id, location="us-central1", credentials=credentials)
 
