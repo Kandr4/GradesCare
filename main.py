@@ -1,5 +1,4 @@
 import google.auth
-import os
 from google.oauth2 import service_account
 import google.generativeai as genai
 import key
@@ -10,12 +9,9 @@ from fastapi.middleware.cors import CORSMiddleware
 from pydantic import BaseModel
 import vertexai
 from vertexai.generative_models import GenerativeModel, Part
-from dotenv import load_dotenv
 
 
 
-# Cargar variables de entorno desde el archivo .env
-load_dotenv()
 app = FastAPI()
 app.title = "API de prueba"
 app.version = "0.0.1"
@@ -32,32 +28,15 @@ app.add_middleware(
     allow_headers=["*"],
 )
 
-
-
-
-# Obtener las variables de entorno
-service_account_info = {
-    "type": os.getenv("TYPE"),
-    "project_id": os.getenv("PROJECT_ID"),
-    "private_key_id": os.getenv("PRIVATE_KEY_ID"),
-    "private_key": os.getenv("PRIVATE_KEY").replace("\\n", "\n"),
-    "client_email": os.getenv("CLIENT_EMAIL"),
-    "client_id": os.getenv("CLIENT_ID"),
-    "auth_uri": os.getenv("AUTH_URI"),
-    "token_uri": os.getenv("TOKEN_URI"),
-    "auth_provider_x509_cert_url": os.getenv("AUTH_PROVIDER_X509_CERT_URL"),
-    "client_x509_cert_url": os.getenv("CLIENT_X509_CERT_URL")
-}
-
-api_key = os.getenv("GOOGLE_API_KEY")
-project_id = os.getenv("PROJECT_ID")
-location = os.getenv("LOCATION")
+# Ruta del archivo JSON de credenciales
+credential_path = " /etc/secrets/key.json"
 
 # Autenticación con las credenciales del archivo JSON
-credentials = service_account.Credentials.from_service_account_info(service_account_info)
+credentials = service_account.Credentials.from_service_account_file(
+    credential_path
+)
 
-# Configurar la API generativa de Google con las credenciales autenticadas
-genai.configure(api_key=api_key, credentials=credentials)
+genai.configure(api_key=key.clave, credentials=credentials)
 model = genai.GenerativeModel(model_name="gemini-pro")
 
 movies = [
