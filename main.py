@@ -29,7 +29,7 @@ app.add_middleware(
 )
 
 # Ruta del archivo JSON de credenciales
-credential_path = "key.json"
+credential_path = ".env"
 
 # Autenticación con las credenciales del archivo JSON
 credentials = service_account.Credentials.from_service_account_file(
