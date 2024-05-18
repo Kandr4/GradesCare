@@ -36,7 +36,7 @@ credentials = service_account.Credentials.from_service_account_file(
     credential_path
 )
 
-genai.configure(api_key=key.clave, credentials=credentials)
+genai.configure(api_key=key.clave)
 model = genai.GenerativeModel(model_name="gemini-pro")
 
 movies = [
