@@ -190,5 +190,5 @@ def evaluar(evaluacion: Evaluacion):
     contents = [pdf_file, prompt]
 
     response = model.generate_content(contents)
-    print(response.text)
+    return response.text
     
