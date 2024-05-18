@@ -5,5 +5,7 @@
     "quota_project_id": "gradescare",
     "refresh_token": "1//0f0JrulPkjZvZCgYIARAAGA8SNwF-L9IrRlY7UBuO2Xl8Ug09Uw1G4du0bfv1SZSgiSym5j-052YfcilmTrFI_FAMaAjOMhakl2U",
     "type": "authorized_user",
-    "universe_domain": "googleapis.com"
+    "universe_domain": "googleapis.com",
+    "token_uri": "https://oauth2.googleapis.com/token",
+    "client_email":"antoniochavezmarco@gmail.com"
   }
