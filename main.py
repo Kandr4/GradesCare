@@ -193,6 +193,7 @@ def evaluar(evaluacion: Evaluacion):
     prompt = """
     You are a highly experienced educator tasked with evaluating a student's work. The student has submitted the following task for assessment: {task}
     Find the evaluation criteria, and assing a grade to the student's work, in a range of 1 to 100. Provide constructive feedback to help the student improve their performance.
+    Your students don't know english, so you have to write the feedback in spanish.
     """
     
     prompt = prompt.format(task=evaluacion.tarea)
