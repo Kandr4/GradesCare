@@ -5,6 +5,8 @@ from fastapi.responses import JSONResponse
 from fastapi.responses import HTMLResponse
 from fastapi.middleware.cors import CORSMiddleware
 from pydantic import BaseModel
+import vertexai
+from vertexai.generative_models import GenerativeModel, Part
 
 
 
@@ -159,6 +161,34 @@ In this scenario, your task is to:
     subject=actividad.materia,
     student_age=actividad.edad,
     activity_description=actividad.descripcionActividad,
-    student_preferences=actividad.observaciones
+    student_preferences=actividad.observaciones)).text
     
-        )).text
+class Evaluacion(BaseModel):
+    tarea: str
+    url_pdf: str
+    
+ 
+@app.post('/evaluar', tags=['gradesCare'])
+def evaluar(evaluacion: Evaluacion):
+    
+
+    # TODO(developer): Update and un-comment below lines
+    project_id = "gradescare"
+
+    vertexai.init(project=project_id, location="us-central1")
+
+    model = GenerativeModel(model_name="gemini-1.5-pro-preview-0409")
+
+    prompt = """
+    You are a highly experienced educator tasked with evaluating a student's work. The student has submitted the following task for assessment: {task}
+    Find the evaluation criteria, and assing a grade to the student's work, in a range of 1 to 100. Provide constructive feedback to help the student improve their performance.
+    """
+    
+    prompt = prompt.format(task=evaluacion.tarea)
+
+    pdf_file = Part.from_uri(evaluacion.url_pdf, mime_type="application/pdf")
+    contents = [pdf_file, prompt]
+
+    response = model.generate_content(contents)
+    print(response.text)
+    
